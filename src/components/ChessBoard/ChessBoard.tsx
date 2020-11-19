@@ -4,8 +4,8 @@ import Chessboard, { Piece } from 'chessboardjsx';
 
 export const ChessBoard: FunctionComponent<ChessBoardProps> = () => {
 
-  const onDrop = (obj: { sourceSquare: string, targetSquare: string, piece: Piece }) => {
-    console.log(obj)
+  const onDrop = (_: { sourceSquare: string, targetSquare: string, piece: Piece }) => {
+
   }
 
   return (
