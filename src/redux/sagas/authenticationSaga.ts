@@ -1,9 +1,14 @@
 import * as AuthenticationAction from '../actions/AuthenticationAction';
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, call } from 'redux-saga/effects';
+import { AuthenticationService } from '../../services/AuthenticationService';
 
+const authenticationService = new AuthenticationService();
 
 export function* login(action: AuthenticationAction.LoginAction) {
-  console.log('logging in')
+  yield call(authenticationService.login.bind(authenticationService),
+    action.payload.username,
+    action.payload.password
+  );
 }
 
 export const sagas = [

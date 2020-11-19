@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import { createReduxStore } from './redux/store/createStore';
+import { configureRouter } from './routes/configureRouter';
+import { RouterProvider } from 'react-router5';
+
+const router = configureRouter();
+const store = createReduxStore(router);
+
+const index = (
+  <Provider store={store}>
+    <RouterProvider router={router}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </RouterProvider>
+  </Provider>
+)
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  index,
   document.getElementById('root')
 );
 

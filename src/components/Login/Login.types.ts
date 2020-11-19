@@ -3,7 +3,7 @@
 export interface ILoginInput { }
 
 export interface ILoginEvent {
-  onSubmit: (data: LoginData) => void;
+  // onSubmit: (data: LoginData) => void;
 }
 
 export interface LoginData {

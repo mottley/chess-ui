@@ -7,13 +7,14 @@ import { Router } from 'router5';
 import { IApplicationStore } from './store.types';
 import { chessReducers } from '../reducers/reducers';
 import { actionClassMiddleware } from '../middlewares/actionClassMiddleware';
+import { sagas } from '../sagas/sagas';
 
 export function createReduxStore(router: Router, initialState = {}) {
   const sagaMiddleware = createSagaMiddleware();
   const routerMiddleware = router5Middleware(router);
   const loggerMiddleware = createLogger();
 
-  const middlewares = [actionClassMiddleware, routerMiddleware, loggerMiddleware];
+  const middlewares = [actionClassMiddleware, routerMiddleware, loggerMiddleware, sagaMiddleware];
 
   const createStoreWithMiddleware = composeWithDevTools(
     applyMiddleware(
@@ -31,7 +32,7 @@ export function createReduxStore(router: Router, initialState = {}) {
     reducers,
   )
 
-  // sagaMiddleware.run([])
+  sagaMiddleware.run(sagas)
 
   // @ts-ignore
   window.store = store
