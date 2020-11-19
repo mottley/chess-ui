@@ -1,7 +1,9 @@
 import * as AuthenticationAction from '../actions/AuthenticationAction';
-import { takeEvery, call } from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 import { AuthenticationService } from '../../services/AuthenticationService';
 import { GameService } from '../../services/GameService';
+import { actions as RouterAction } from 'redux-router5';
+import { RouteNames } from '../../routes/routes';
 
 const authenticationService = new AuthenticationService();
 
@@ -17,6 +19,7 @@ export function* login(action: AuthenticationAction.LoginAction) {
   //   'c59fea60-12a8-4a4f-a324-0899489e6bfd',
   //   'e4'
   // )
+  yield put(RouterAction.navigateTo(RouteNames.Game))
 }
 
 export const sagas = [

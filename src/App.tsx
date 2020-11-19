@@ -3,13 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 
 import { ChessBoard } from './components/ChessBoard/ChessBoard';
-import { Login } from './components/Login/Login';
+import { Main } from './views/main/Main';
 
 const App: FunctionComponent = () => {
   return (
     <div className="App">
-      {/* <ChessBoard /> */}
-      <Login />
+      <Main />;
     </div>
   )
 }
