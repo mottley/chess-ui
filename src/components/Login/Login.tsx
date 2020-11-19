@@ -72,16 +72,15 @@ export const Login: FunctionComponent<LoginProps> = props => {
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        {/* <form className={classes.form} noValidate> */}
         <TextField
           variant='outlined'
           margin='normal'
           required
           fullWidth
-          id='email'
-          label='Email Address'
-          name='email'
-          autoComplete='email'
+          id='username'
+          label='Username'
+          name='username'
+          autoComplete='username'
           autoFocus
           value={username}
           onChange={event => setUsername(event.target.value)}
@@ -99,10 +98,10 @@ export const Login: FunctionComponent<LoginProps> = props => {
           value={password}
           onChange={event => setPassword(event.target.value)}
         />
-        <FormControlLabel
+        {/* <FormControlLabel
           control={<Checkbox value='remember' color='primary' />}
           label='Remember me'
-        />
+        /> */}
         <Button
           type='submit'
           fullWidth
@@ -125,7 +124,6 @@ export const Login: FunctionComponent<LoginProps> = props => {
             </Link>
           </Grid>
         </Grid>
-        {/* </form> */}
       </div>
       <Box mt={8}>
         <Copyright />
