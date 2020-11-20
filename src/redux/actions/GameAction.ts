@@ -8,7 +8,10 @@ export enum ActionName {
 
   GetGame = '@Game/get',
   GetGameSuccess = '@Game/get/success',
-  GetGameError = '@Game/get/error'
+  GetGameError = '@Game/get/error',
+
+  PollGameStart = '@Game/poll/start',
+  PollGameStop = '@Game/poll/stop',
 }
 
 export interface IMovePayload {
@@ -44,8 +47,24 @@ export class GetGameSuccessAction implements Action<ActionName> {
   constructor(public payload: IGamePayload) { }
 }
 
+export interface IPollGamePayload {
+}
+
+export class PollGameStartAction implements Action<ActionName> {
+  type = ActionName.PollGameStart
+  constructor(public payload: IPollGamePayload) { }
+}
+
+export class PollGameStopAction implements Action<ActionName> {
+  type = ActionName.PollGameStop
+  constructor(public payload: IPollGamePayload) { }
+}
+
 export type GameAction = MoveAction
   | MoveSuccessAction
 
   | GetGameAction
   | GetGameSuccessAction
+
+  | PollGameStartAction
+  | PollGameStopAction
