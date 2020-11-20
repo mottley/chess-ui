@@ -9,7 +9,6 @@ import { Game } from '../game/Game';
 export const Main: FunctionComponent<MainProps> = props => {
   const route = useRoute();
 
-  console.log(route)
   switch (route.route.name) {
     case RouteNames.Login:
       return <Login />;

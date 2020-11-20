@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { PlayerDto } from '../models/dto/PlayerDto';
 
 axios.defaults.withCredentials = true
 
@@ -10,8 +10,8 @@ export class AuthenticationService {
 
   }
 
-  public async login(username: string, password: string) {
+  public async login(username: string, password: string): Promise<PlayerDto> {
     const url: string = this.apiBase + '/login';
-    await axios.post(url, { username, password })
+    return (await axios.post<PlayerDto>(url, { username, password })).data
   }
 }
