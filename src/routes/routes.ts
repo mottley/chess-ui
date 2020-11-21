@@ -4,7 +4,8 @@ import { Route } from "router5";
 export enum RouteNames {
   Base = 'chess',
   Login = 'chess.login',
-  Game = 'chess.game'
+  Game = 'chess.game',
+  Lobby = 'chess.lobby'
 }
 
 export const routes: Route[] = [
@@ -19,5 +20,9 @@ export const routes: Route[] = [
   {
     name: RouteNames.Game,
     path: '/game'
+  },
+  {
+    name: RouteNames.Lobby,
+    path: '/lobby'
   }
 ]

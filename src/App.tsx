@@ -8,7 +8,7 @@ import { Main } from './views/main/Main';
 const App: FunctionComponent = () => {
   return (
     <div className="App">
-      <Main />;
+      <Main />
     </div>
   )
 }

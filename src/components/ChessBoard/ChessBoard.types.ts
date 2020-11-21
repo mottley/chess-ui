@@ -4,7 +4,7 @@ import { PlayerVO } from '../../models/PlayerVO';
 
 export interface IChessBoardInput {
   game: GameVO
-  player: PlayerVO
+  player?: PlayerVO
 }
 
 export interface IChessBoardEvent {

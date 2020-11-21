@@ -3,16 +3,20 @@ import { authenticationReducer, IAuthenticationState } from './authenticationRed
 import { AuthenticationAction } from '../actions/AuthenticationAction';
 import { gameReducer, IGameState } from './gameReducer';
 import { GameAction } from '../actions/GameAction';
+import { roomReducer, IRoomState } from './roomReducer';
+import { RoomAction } from '../actions/RoomAction';
 
 
 export interface IState {
   auth: IAuthenticationState,
-  game: IGameState
+  game: IGameState,
+  room: IRoomState
 }
 
-export type RootAction = AuthenticationAction | GameAction
+export type RootAction = AuthenticationAction | GameAction | RoomAction
 
 export const chessReducers: Reducer<IState, RootAction> = combineReducers({
   auth: authenticationReducer,
-  game: gameReducer
+  game: gameReducer,
+  room: roomReducer
 })

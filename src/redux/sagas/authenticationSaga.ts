@@ -21,8 +21,8 @@ export function* login(action: AuthenticationAction.LoginAction) {
   yield put(new AuthenticationAction.LoginSuccessAction({ player: vo }))
 
   // TODO - remove/implement rooms?
-  yield put(new GetGameAction({ gameId: 'c59fea60-12a8-4a4f-a324-0899489e6bfd' }))
-  yield put(RouterAction.navigateTo(RouteNames.Game))
+  // yield put(new GetGameAction({ gameId: 'c59fea60-12a8-4a4f-a324-0899489e6bfd' }))
+  yield put(RouterAction.navigateTo(RouteNames.Lobby))
 }
 
 export const sagas = [
