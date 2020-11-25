@@ -4,13 +4,16 @@ import { PlayerDto } from "./dto/PlayerDto";
 import { PlayerVO } from "./PlayerVO";
 import { RoomDto } from './dto/RoomDto';
 import { RoomVO } from './RoomVO';
-
-
-
+import { MoveDto } from './dto/MoveDto';
+import { MoveVO } from './MoveVO';
 
 export const dtoToGameVO = (dto: GameDto): GameVO => {
   return {
-    ...dto
+    ...dto,
+    moveTimer: new Date(dto.moveTimer),
+    moves: dto.moves
+      .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
+      .map((m, idx) => dtoToMoveVO(m, idx + 1))
   }
 }
 
@@ -25,5 +28,13 @@ export const dtoToRoomVO = (dto: RoomDto): RoomVO => {
     ...dto,
     gameId: (dto.gameId || undefined),
     players: dto.players.map(p => dtoToPlayerVO(p))
+  }
+}
+
+export const dtoToMoveVO = (dto: MoveDto, number: number): MoveVO => {
+  return {
+    ...dto,
+    time: new Date(dto.time),
+    number: number
   }
 }

@@ -1,4 +1,5 @@
 import { GameStatus, Color } from '../enum';
+import { MoveDto } from './MoveDto';
 
 
 export interface GameDto {
@@ -7,8 +8,8 @@ export interface GameDto {
   turn: Color
   board: string
   players: GamePlayersDto
-  moveTimer: Date
-  moves: string[] // TODO - update
+  moveTimer: string
+  moves: MoveDto[]
 }
 
 export interface GamePlayersDto {

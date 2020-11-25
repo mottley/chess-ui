@@ -1,5 +1,6 @@
 import { GameStatus, Color } from './enum';
 import { GamePlayersDto } from './dto/GameDto';
+import { MoveVO } from './MoveVO';
 
 export interface GameVO {
   gameId: string
@@ -7,5 +8,6 @@ export interface GameVO {
   turn: Color
   board: string
   players: GamePlayersDto
-  moves: string[] // TODO - update
+  moveTimer: Date
+  moves: MoveVO[]
 }

@@ -6,6 +6,9 @@ import { MoveAction } from '../../redux/actions/GameAction';
 import { GameVO } from '../../models/GameVO';
 import { IApplicationStore } from '../../redux/store/store.types';
 import { PlayerVO } from '../../models/PlayerVO';
+import { Box } from '@material-ui/core';
+import { MoveSidebar } from '../../components/MoveSidebar/MoveSidebar';
+import { TurnIndicator } from '../../components/TurnIndicator/TurnIndicator';
 
 
 export const Game: FunctionComponent<GameProps> = () => {
@@ -22,11 +25,25 @@ export const Game: FunctionComponent<GameProps> = () => {
   return (
     <React.Fragment>
       {game &&
-        <ChessBoard
-          game={game}
-          player={player}
-          onMove={onMove}
-        />}
+        <Box display='flex'>
+          <Box>
+            <ChessBoard
+              game={game}
+              player={player}
+              onMove={onMove}
+            />
+          </Box>
+          <Box>
+            <MoveSidebar
+              moves={game.moves}
+            />
+          </Box>
+          <TurnIndicator
+            game={game}
+            player={player}
+          />
+        </Box>
+      }
     </React.Fragment>
   )
 }
