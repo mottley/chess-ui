@@ -6,10 +6,11 @@ import { Typography, Card, CardContent, makeStyles, Button } from '@material-ui/
 
 export const RoomList: FunctionComponent<RoomListProps> = props => {
 
-  // console.log(props.rooms[0].players)
-
   return (
     <div>
+      {props.rooms.length == 0 &&
+        <Typography>No rooms available!</Typography>
+      }
       {props.rooms.map(r =>
         <Card
           key={r.name}

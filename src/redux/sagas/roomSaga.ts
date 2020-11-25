@@ -12,6 +12,24 @@ import { RouteNames } from '../../routes/routes';
 
 const roomService = new RoomService();
 
+export function* createRoom(action: RoomAction.CreateRoom) {
+  try {
+    yield call(roomService.createRoom.bind(roomService), action.payload.roomName)
+    yield put(new RoomAction.CreateRoomSuccess({}))
+  } catch (err) {
+    yield put(new RoomAction.CreateRoomError())
+  }
+}
+
+export function* joinRoom(action: RoomAction.JoinRoom) {
+  try {
+    yield call(roomService.joinRoom.bind(roomService), action.payload.roomName)
+    yield put(new RoomAction.JoinRoomSuccess())
+  } catch (err) {
+    yield put(new RoomAction.JoinRoomError())
+  }
+}
+
 export function* pollRooms() {
   while (true) {
     try {
@@ -46,5 +64,7 @@ export function* pollTaskWatcher() {
 }
 
 export const sagas = [
+  takeEvery(RoomAction.ActionName.CreateRoom, createRoom),
+  takeEvery(RoomAction.ActionName.JoinRoom, joinRoom),
   fork(pollTaskWatcher)
 ]

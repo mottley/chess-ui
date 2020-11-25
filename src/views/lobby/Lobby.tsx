@@ -5,7 +5,8 @@ import { RoomList } from '../../components/RoomList/RoomList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RoomVO } from '../../models/RoomVO';
 import { IApplicationStore } from '../../redux/store/store.types';
-import { PollRoomStart, JoinRoom } from '../../redux/actions/RoomAction';
+import { PollRoomStart, JoinRoom, CreateRoom } from '../../redux/actions/RoomAction';
+import { RoomInput } from '../../components/RoomInput/RoomInput';
 
 const useStyles = makeStyles((theme) => ({
   submit: {
@@ -20,10 +21,14 @@ export const Lobby: FunctionComponent<LobbyProps> = props => {
 
   const availableRooms = useSelector<IApplicationStore, RoomVO[] | undefined>(store => store.chess.room.availableRooms)
 
-  const [selectedRoom, setSelectedRoom] = useState<string>('');
+  const [roomName, setRoomName] = useState<string>('');
 
-  const onJoinGame = () => {
-    dispatch(new JoinRoom({ roomName: selectedRoom }))
+  const onJoinRoom = () => {
+    dispatch(new JoinRoom({ roomName: roomName }))
+  }
+
+  const onCreateRoom = () => {
+    dispatch(new CreateRoom({ roomName: roomName }))
   }
 
   useEffect(() => {
@@ -36,20 +41,15 @@ export const Lobby: FunctionComponent<LobbyProps> = props => {
       {availableRooms &&
         <RoomList
           rooms={availableRooms}
-          onRoomSelected={room => setSelectedRoom(room)}
+          onRoomSelected={roomName => setRoomName(roomName)}
         />
       }
-
-      <Button
-        type='submit'
-        fullWidth
-        variant='contained'
-        color='primary'
-        className={classes.submit}
-        onClick={() => onJoinGame()}
-      >
-        Join Game
-      </Button>
+      <RoomInput
+        roomName={roomName}
+        onRoomNameChange={roomName => setRoomName(roomName)}
+        onCreateRoom={onCreateRoom}
+        onJoinRoom={onJoinRoom}
+      />
     </React.Fragment>
   )
 }
