@@ -6,6 +6,8 @@ import { RoomDto } from './dto/RoomDto';
 import { RoomVO } from './RoomVO';
 import { MoveDto } from './dto/MoveDto';
 import { MoveVO } from './MoveVO';
+import { GameHistoryVO } from './GameHistoryVO';
+import { GameHistoryDto } from './dto/GameHistoryDto';
 
 export const dtoToGameVO = (dto: GameDto): GameVO => {
   return {
@@ -36,5 +38,15 @@ export const dtoToMoveVO = (dto: MoveDto, number: number): MoveVO => {
     ...dto,
     time: new Date(dto.time),
     number: number
+  }
+}
+
+export const dtoToHistoryVO = (dto: GameHistoryDto): GameHistoryVO => {
+  return {
+    ...dto,
+    board: dto.finalBoard,
+    moves: dto.moves
+      .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
+      .map((m, idx) => dtoToMoveVO(m, idx + 1))
   }
 }

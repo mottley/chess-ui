@@ -7,6 +7,7 @@ import { GetGameAction } from '../actions/GameAction';
 import { PlayerDto } from '../../models/dto/PlayerDto';
 import { PlayerVO } from '../../models/PlayerVO';
 import { dtoToPlayerVO } from '../../models/converter';
+import * as HistoryAction from '../actions/HistoryAction';
 
 const authenticationService = new AuthenticationService();
 
@@ -20,9 +21,9 @@ export function* login(action: AuthenticationAction.LoginAction) {
 
   yield put(new AuthenticationAction.LoginSuccessAction({ player: vo }))
 
-  // TODO - remove/implement rooms?
-  // yield put(new GetGameAction({ gameId: 'c59fea60-12a8-4a4f-a324-0899489e6bfd' }))
   yield put(RouterAction.navigateTo(RouteNames.Lobby))
+
+  yield put(new HistoryAction.GetHistoryAction({}))
 }
 
 export const sagas = [

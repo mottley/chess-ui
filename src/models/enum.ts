@@ -9,3 +9,12 @@ export enum GameStatus {
   Check = 'check',
   Completed = 'completed'
 }
+
+export enum GameResult {
+  Forfeit = 'forfeit',
+  Checkmate = 'checkmate',
+  Draw = 'draw',
+  Stalemate = 'stalemate',
+  ThreefoldRepetition = 'threefold repetition',
+  InsufficientMaterial = 'insufficient material'
+}

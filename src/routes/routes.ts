@@ -5,7 +5,8 @@ export enum RouteNames {
   Base = 'chess',
   Login = 'chess.login',
   Game = 'chess.game',
-  Lobby = 'chess.lobby'
+  Lobby = 'chess.lobby',
+  History = 'chess.history'
 }
 
 export const routes: Route[] = [
@@ -24,5 +25,9 @@ export const routes: Route[] = [
   {
     name: RouteNames.Lobby,
     path: '/lobby'
+  },
+  {
+    name: RouteNames.History,
+    path: '/history'
   }
 ]

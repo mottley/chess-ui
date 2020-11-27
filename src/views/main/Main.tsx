@@ -5,6 +5,7 @@ import { RouteNames } from '../../routes/routes';
 import { Game } from '../game/Game';
 import { Login } from '../login/Login';
 import { Lobby } from '../lobby/Lobby';
+import { History } from '../history/History';
 
 export const Main: FunctionComponent<MainProps> = props => {
   const route = useRoute();
@@ -16,6 +17,8 @@ export const Main: FunctionComponent<MainProps> = props => {
       return <Game />;
     case RouteNames.Lobby:
       return <Lobby />;
+    case RouteNames.History:
+      return <History />;
     default:
       return <Login />;
   }
