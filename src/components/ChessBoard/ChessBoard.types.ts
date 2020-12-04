@@ -1,9 +1,10 @@
 import { GameVO } from '../../models/GameVO';
 import { PlayerVO } from '../../models/PlayerVO';
+import { GameHistoryVO } from '../../models/GameHistoryVO';
 
 
 export interface IChessBoardInput {
-  game: GameVO
+  game: GameVO | GameHistoryVO
   player?: PlayerVO
 }
 

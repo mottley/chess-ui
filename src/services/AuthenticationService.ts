@@ -4,7 +4,7 @@ import { PlayerDto } from '../models/dto/PlayerDto';
 axios.defaults.withCredentials = true
 
 export class AuthenticationService {
-  private apiBase = 'http://localhost:8000';
+  private apiBase = 'https://localhost:8443';
 
   public async register() {
 

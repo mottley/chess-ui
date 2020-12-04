@@ -9,13 +9,21 @@ import { PlayerVO } from '../../models/PlayerVO';
 import { Box } from '@material-ui/core';
 import { MoveSidebar } from '../../components/MoveSidebar/MoveSidebar';
 import { TurnIndicator } from '../../components/TurnIndicator/TurnIndicator';
+import { GameHistoryVO } from '../../models/GameHistoryVO';
 
 
 export const Game: FunctionComponent<GameProps> = () => {
 
   const dispatch = useDispatch();
 
+  const gameId = '';
+
+  const completedGames = useSelector<IApplicationStore, GameHistoryVO[]>(store => (store.chess.history.completedGames || []))
   const game = useSelector<IApplicationStore, GameVO | undefined>(store => store.chess.game.game)
+
+  const inProgressGame = game && game.gameId === gameId
+
+  const completedGame = completedGames.find(cg => cg.gameId === gameId)
   const player = useSelector<IApplicationStore, PlayerVO>(store => store.chess.auth.player!)
 
   const onMove = (move: string) => {
@@ -24,7 +32,7 @@ export const Game: FunctionComponent<GameProps> = () => {
 
   return (
     <React.Fragment>
-      {game &&
+      {game && inProgressGame &&
         <Box display='flex'>
           <Box>
             <ChessBoard
@@ -35,7 +43,7 @@ export const Game: FunctionComponent<GameProps> = () => {
           </Box>
           <Box>
             <MoveSidebar
-              moves={game.moves}
+              moves={inProgressGame ? game.moves : completedGame?.moves || []}
             />
           </Box>
           <TurnIndicator
