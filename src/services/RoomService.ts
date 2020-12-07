@@ -3,7 +3,7 @@ import { RoomDto } from '../models/dto/RoomDto';
 
 
 export class RoomService {
-  private apiBase: string = 'https://localhost:8443';
+  private apiBase: string = '/api';
 
   async getRooms() {
     const url: string = this.apiBase + '/room';

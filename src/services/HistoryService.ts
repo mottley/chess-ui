@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GameHistoryDto } from '../models/dto/GameHistoryDto';
 
 export class HistoryService {
-  private apiBase = 'https://localhost:8443';
+  private apiBase = '/api';
 
   public async getGameHistory() {
     const url: string = this.apiBase + '/history';

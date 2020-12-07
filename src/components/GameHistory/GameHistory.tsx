@@ -21,7 +21,7 @@ export const GameHistory: FunctionComponent<GameHistoryProps> = props => {
           {props.games.map(g =>
             <TableRow>
               <TableCell>
-                <Button onClick={() => console.log(g.gameId)}>
+                <Button onClick={() => props.onViewGame(g)}>
                   View Game
                 </Button>
               </TableCell>

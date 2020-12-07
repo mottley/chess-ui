@@ -10,13 +10,15 @@ import { Box } from '@material-ui/core';
 import { MoveSidebar } from '../../components/MoveSidebar/MoveSidebar';
 import { TurnIndicator } from '../../components/TurnIndicator/TurnIndicator';
 import { GameHistoryVO } from '../../models/GameHistoryVO';
+import { useRoute } from 'react-router5';
 
 
 export const Game: FunctionComponent<GameProps> = () => {
 
   const dispatch = useDispatch();
 
-  const gameId = '';
+  const route = useRoute();
+  const gameId = route.route.params.gameId;
 
   const completedGames = useSelector<IApplicationStore, GameHistoryVO[]>(store => (store.chess.history.completedGames || []))
   const game = useSelector<IApplicationStore, GameVO | undefined>(store => store.chess.game.game)
@@ -24,6 +26,7 @@ export const Game: FunctionComponent<GameProps> = () => {
   const inProgressGame = game && game.gameId === gameId
 
   const completedGame = completedGames.find(cg => cg.gameId === gameId)
+  console.log('completed game', completedGame)
   const player = useSelector<IApplicationStore, PlayerVO>(store => store.chess.auth.player!)
 
   const onMove = (move: string) => {
@@ -32,24 +35,25 @@ export const Game: FunctionComponent<GameProps> = () => {
 
   return (
     <React.Fragment>
-      {game && inProgressGame &&
+      {(game || completedGame) &&
         <Box display='flex'>
           <Box>
             <ChessBoard
-              game={game}
+              game={inProgressGame ? game! : completedGame!}
               player={player}
               onMove={onMove}
             />
           </Box>
           <Box>
             <MoveSidebar
-              moves={inProgressGame ? game.moves : completedGame?.moves || []}
+              moves={inProgressGame ? game!.moves : completedGame!.moves}
             />
           </Box>
-          <TurnIndicator
-            game={game}
-            player={player}
-          />
+          {game && inProgressGame &&
+            <TurnIndicator
+              game={game}
+              player={player}
+            />}
         </Box>
       }
     </React.Fragment>

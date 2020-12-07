@@ -6,7 +6,13 @@ export enum ActionName {
   LoginSuccess = '@Auth/login/success',
   LoginError = '@Auth/login/error',
 
-  Logout = '@Auth/logout'
+  Logout = '@Auth/logout',
+  LogoutSuccess = '@Auth/logout/success',
+  LogoutError = '@Auth/logout/error',
+
+  GetCsrf = '@Auth/csrf',
+  GetCsrfSuccess = '@Auth/csrf/success',
+  GetCsrfError = '@Auth/csrf/error'
 }
 
 export interface ILoginPayload {
@@ -26,6 +32,10 @@ export interface ILoginSuccessPayload {
 export class LoginSuccessAction implements Action<ActionName> {
   type = ActionName.LoginSuccess
   constructor(public payload: ILoginSuccessPayload) { }
+}
+
+export class GetCsrfAction implements Action<ActionName> {
+  type = ActionName.GetCsrf
 }
 
 export type AuthenticationAction = LoginAction

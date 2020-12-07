@@ -20,7 +20,7 @@ export const routes: Route[] = [
   },
   {
     name: RouteNames.Game,
-    path: '/game'
+    path: '/game/:gameId'
   },
   {
     name: RouteNames.Lobby,

@@ -44,7 +44,7 @@ export function* pollRooms() {
       const activeGameRoom = vos.find(r => r.gameId && r.players.find(p => p.username === player.username))
       if (activeGameRoom !== undefined) {
         yield put(new GetGameAction({ gameId: activeGameRoom.gameId! }))
-        yield put(RouterAction.navigateTo(RouteNames.Game))
+        yield put(RouterAction.navigateTo(RouteNames.Game, { gameId: activeGameRoom.gameId }))
         yield put(new RoomAction.PollRoomStop({}))
       }
 

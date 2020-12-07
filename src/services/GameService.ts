@@ -4,7 +4,7 @@ import { GameDto } from '../models/dto/GameDto';
 
 export class GameService {
 
-  private apiBase: string = 'https://localhost:8443';
+  private apiBase: string = '/api';
 
   public async move(gameId: string, move: string) {
     const url: string = this.apiBase + '/game/' + gameId + '/move';
