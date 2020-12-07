@@ -55,9 +55,20 @@ export function* logout(action: AuthenticationAction.LogoutAction) {
   yield put(RouterAction.navigateTo(RouteNames.Login))
 }
 
+export function* register(action: AuthenticationAction.RegisterAction) {
+  const dto: PlayerDto = yield call(authenticationService.register.bind(authenticationService),
+    action.payload.username,
+    action.payload.password
+  )
+  const vo: PlayerVO = dtoToPlayerVO(dto)
+
+  yield put(new AuthenticationAction.RegisterSuccessAction({ player: vo }))
+}
+
 export const sagas = [
   takeEvery(AuthenticationAction.ActionName.Login, login),
   takeEvery(AuthenticationAction.ActionName.Logout, logout),
   takeEvery(AuthenticationAction.ActionName.GetCsrf, getCsrfToken),
-  takeEvery(AuthenticationAction.ActionName.CheckAuthenticated, checkAuthenticated)
+  takeEvery(AuthenticationAction.ActionName.CheckAuthenticated, checkAuthenticated),
+  takeEvery(AuthenticationAction.ActionName.Register, register)
 ]

@@ -15,6 +15,8 @@ import { LockOutlined } from '@material-ui/icons';
 import { LoginProps } from './Login.types';
 import { useDispatch } from 'react-redux';
 import { LoginAction } from '../../redux/actions/AuthenticationAction';
+import { useRouter } from 'react-router5';
+import { RouteNames } from '../../routes/routes';
 
 const Copyright: FunctionComponent = () => {
   return (
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 export const Login: FunctionComponent<LoginProps> = props => {
 
   const classes = useStyles();
+  const router = useRouter();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -70,7 +73,7 @@ export const Login: FunctionComponent<LoginProps> = props => {
           <LockOutlined />
         </Avatar>
         <Typography component='h1' variant='h5'>
-          Sign in
+          Sign In
         </Typography>
         <TextField
           variant='outlined'
@@ -98,10 +101,6 @@ export const Login: FunctionComponent<LoginProps> = props => {
           value={password}
           onChange={event => setPassword(event.target.value)}
         />
-        {/* <FormControlLabel
-          control={<Checkbox value='remember' color='primary' />}
-          label='Remember me'
-        /> */}
         <Button
           type='submit'
           fullWidth
@@ -114,12 +113,9 @@ export const Login: FunctionComponent<LoginProps> = props => {
           </Button>
         <Grid container>
           <Grid item xs>
-            <Link href='#' variant='body2'>
-              Forgot password?
-            </Link>
           </Grid>
           <Grid item>
-            <Link href='#' variant='body2'>
+            <Link onClick={() => router.navigate(RouteNames.Register)} variant='body2'>
               {"Don't have an account? Sign Up"}
             </Link>
           </Grid>

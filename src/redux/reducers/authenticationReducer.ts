@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { AuthenticationAction, ActionName, LoginSuccessAction } from '../actions/AuthenticationAction'
+import { AuthenticationAction, ActionName, LoginSuccessAction, RegisterSuccessAction } from '../actions/AuthenticationAction'
 import { PlayerVO } from '../../models/PlayerVO';
 
 
@@ -17,6 +17,12 @@ export const authenticationReducer = (state: IAuthenticationState = initialAuthe
       case (ActionName.LoginSuccess): {
         const loginAction = action as LoginSuccessAction
         next.player = loginAction.payload.player
+        break;
+      }
+      case (ActionName.RegisterSuccess): {
+        const registerAction = action as RegisterSuccessAction
+        next.player = registerAction.payload.player
+        break;
       }
     }
   })

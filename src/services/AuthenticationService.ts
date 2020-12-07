@@ -8,7 +8,9 @@ axios.defaults.withCredentials = true
 export class AuthenticationService {
   private apiBase = '/api';
 
-  public async register() {
+  public async register(username: string, password: string): Promise<PlayerDto> {
+    const url: string = this.apiBase + '/register';
+    return (await axios.post<PlayerDto>(url, { username, password })).data
   }
 
   public async login(username: string, password: string): Promise<PlayerDto> {

@@ -14,7 +14,11 @@ export enum ActionName {
   GetCsrfSuccess = '@Auth/csrf/success',
   GetCsrfError = '@Auth/csrf/error',
 
-  CheckAuthenticated = '@Auth/check'
+  CheckAuthenticated = '@Auth/check',
+
+  Register = '@Auth/register',
+  RegisterSuccess = '@Auth/register/success',
+  RegisterError = '@Auth/register/error'
 }
 
 export interface ILoginPayload {
@@ -48,7 +52,30 @@ export class LogoutAction implements Action<ActionName> {
   type = ActionName.Logout
 }
 
+export interface IRegisterPayload {
+  username: string
+  password: string
+}
+
+export interface IRegisterSuccessPayload {
+  player: PlayerVO
+}
+
+export class RegisterAction implements Action<ActionName> {
+  type = ActionName.Register
+  constructor(public payload: IRegisterPayload) { }
+}
+
+export class RegisterSuccessAction implements Action<ActionName> {
+  type = ActionName.RegisterSuccess
+  constructor(public payload: IRegisterSuccessPayload) { }
+}
+
+
 export type AuthenticationAction = LoginAction
   | LoginSuccessAction
   | GetCsrfAction
   | CheckAuthenticatedAction
+
+  | RegisterAction
+  | RegisterSuccessAction
