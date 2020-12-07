@@ -12,7 +12,9 @@ export enum ActionName {
 
   GetCsrf = '@Auth/csrf',
   GetCsrfSuccess = '@Auth/csrf/success',
-  GetCsrfError = '@Auth/csrf/error'
+  GetCsrfError = '@Auth/csrf/error',
+
+  CheckAuthenticated = '@Auth/check'
 }
 
 export interface ILoginPayload {
@@ -38,5 +40,15 @@ export class GetCsrfAction implements Action<ActionName> {
   type = ActionName.GetCsrf
 }
 
+export class CheckAuthenticatedAction implements Action<ActionName> {
+  type = ActionName.CheckAuthenticated
+}
+
+export class LogoutAction implements Action<ActionName> {
+  type = ActionName.Logout
+}
+
 export type AuthenticationAction = LoginAction
   | LoginSuccessAction
+  | GetCsrfAction
+  | CheckAuthenticatedAction

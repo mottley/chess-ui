@@ -3,7 +3,6 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { AuthenticationService } from '../../services/AuthenticationService';
 import { actions as RouterAction } from 'redux-router5';
 import { RouteNames } from '../../routes/routes';
-import { GetGameAction } from '../actions/GameAction';
 import { PlayerDto } from '../../models/dto/PlayerDto';
 import { PlayerVO } from '../../models/PlayerVO';
 import { dtoToPlayerVO } from '../../models/converter';
@@ -37,7 +36,28 @@ export function* getCsrfToken(action: AuthenticationAction.GetCsrfAction) {
   })
 }
 
+export function* checkAuthenticated(action: AuthenticationAction.CheckAuthenticatedAction) {
+  try {
+    const dto: PlayerDto = yield call(authenticationService.getPlayer.bind(authenticationService))
+
+    const vo: PlayerVO = dtoToPlayerVO(dto)
+
+    yield put(new AuthenticationAction.LoginSuccessAction({ player: vo }))
+
+  } catch (err) {
+    yield put(RouterAction.navigateTo(RouteNames.Login))
+  }
+}
+
+export function* logout(action: AuthenticationAction.LogoutAction) {
+  yield call(authenticationService.logout.bind(authenticationService))
+
+  yield put(RouterAction.navigateTo(RouteNames.Login))
+}
+
 export const sagas = [
   takeEvery(AuthenticationAction.ActionName.Login, login),
-  takeEvery(AuthenticationAction.ActionName.GetCsrf, getCsrfToken)
+  takeEvery(AuthenticationAction.ActionName.Logout, logout),
+  takeEvery(AuthenticationAction.ActionName.GetCsrf, getCsrfToken),
+  takeEvery(AuthenticationAction.ActionName.CheckAuthenticated, checkAuthenticated)
 ]

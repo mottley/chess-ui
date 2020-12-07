@@ -1,9 +1,32 @@
 import React, { FunctionComponent, useState } from 'react';
 import { AppHeaderProps } from './AppHeader.types';
-import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { RouteNames } from '../../routes/routes';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useRouter } from 'react-router5';
+import { useDispatch, useSelector } from 'react-redux';
+import { PlayerVO } from '../../models/PlayerVO';
+import { IApplicationStore } from '../../redux/store/store.types';
+import { LogoutAction } from '../../redux/actions/AuthenticationAction';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    loginLogoutButton: {
+      marginRight: theme.spacing(2),
+      color: 'white'
+    },
+    title: {
+      flexGrow: 1
+    },
+    zip: {
+      marginRight: theme.spacing(4)
+    },
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+      width: 240,
+    },
+  })
+);
 
 interface NavigationOption {
   icon?: React.ReactElement
@@ -30,17 +53,22 @@ const navOptions: NavigationOption[] = [
 
 export const AppHeader: FunctionComponent<AppHeaderProps> = props => {
 
+  const classes = useStyles();
+
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  // const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const authenticatedPlayer = useSelector<IApplicationStore, PlayerVO | undefined>(store => store.chess.auth.player)
+
+  const isLoggedIn = !!authenticatedPlayer
 
   const onNavigationOptionClick = (option: NavigationOption) => {
     router.navigate(option.route)
     setDrawerOpen(false)
-    setProfileMenuOpen(false)
+    // setProfileMenuOpen(false)
   }
 
   return (
@@ -54,7 +82,7 @@ export const AppHeader: FunctionComponent<AppHeaderProps> = props => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6">
+        <Typography variant="h6" className={classes.title}>
           Chess
         </Typography>
 
@@ -82,6 +110,22 @@ export const AppHeader: FunctionComponent<AppHeaderProps> = props => {
             </List>
           </div>
         </Drawer>
+
+        {isLoggedIn ?
+          <Button
+            className={classes.loginLogoutButton}
+            onClick={() => dispatch(new LogoutAction())}
+          >
+            Logout
+          </Button>
+          :
+          <Button
+            className={classes.loginLogoutButton}
+            onClick={() => router.navigate(RouteNames.Login)}
+          >
+            Login
+          </Button>
+        }
       </Toolbar>
     </AppBar>
   );
