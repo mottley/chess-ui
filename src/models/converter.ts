@@ -8,6 +8,7 @@ import { MoveDto } from './dto/MoveDto';
 import { MoveVO } from './MoveVO';
 import { GameHistoryVO } from './GameHistoryVO';
 import { GameHistoryDto } from './dto/GameHistoryDto';
+import { GameStatus } from "./enum";
 
 export const dtoToGameVO = (dto: GameDto): GameVO => {
   return {
@@ -45,6 +46,7 @@ export const dtoToHistoryVO = (dto: GameHistoryDto): GameHistoryVO => {
   return {
     ...dto,
     board: dto.finalBoard,
+    status: GameStatus.Completed,
     moves: dto.moves
       .sort((a, b) => new Date(a.time).getTime() - new Date(b.time).getTime())
       .map((m, idx) => dtoToMoveVO(m, idx + 1))

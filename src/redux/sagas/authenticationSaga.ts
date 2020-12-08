@@ -22,6 +22,8 @@ export function* login(action: AuthenticationAction.LoginAction) {
 
   yield put(new AuthenticationAction.LoginSuccessAction({ player: vo }))
 
+  yield put(new AuthenticationAction.GetCsrfAction())
+
   yield put(RouterAction.navigateTo(RouteNames.Lobby))
 
   yield put(new HistoryAction.GetHistoryAction({}))
@@ -30,7 +32,7 @@ export function* login(action: AuthenticationAction.LoginAction) {
 export function* getCsrfToken(action: AuthenticationAction.GetCsrfAction) {
   const dto: CsrfDto = yield call(authenticationService.getCsrfToken.bind(authenticationService))
 
-  axios.interceptors.request.use(config => {
+  yield axios.interceptors.request.use(config => {
     config.headers['CSRF-TOKEN'] = dto.token
     return config
   })
@@ -44,6 +46,7 @@ export function* checkAuthenticated(action: AuthenticationAction.CheckAuthentica
 
     yield put(new AuthenticationAction.LoginSuccessAction({ player: vo }))
 
+    yield put(new AuthenticationAction.GetCsrfAction())
   } catch (err) {
     yield put(RouterAction.navigateTo(RouteNames.Login))
   }
@@ -63,6 +66,8 @@ export function* register(action: AuthenticationAction.RegisterAction) {
   const vo: PlayerVO = dtoToPlayerVO(dto)
 
   yield put(new AuthenticationAction.RegisterSuccessAction({ player: vo }))
+
+  yield put(RouterAction.navigateTo(RouteNames.Lobby))
 }
 
 export const sagas = [

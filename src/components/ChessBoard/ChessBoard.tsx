@@ -3,6 +3,7 @@ import { ChessBoardProps } from './ChessBoard.types';
 import Chessboard, { Piece } from 'chessboardjsx';
 import { Square } from 'chess.js';
 import { Color } from '../../models/enum';
+import { Grid, Typography } from '@material-ui/core';
 const Chess = require('chess.js');
 
 
@@ -36,10 +37,19 @@ export const ChessBoard: FunctionComponent<ChessBoardProps> = props => {
   }
 
   return (
-    <Chessboard
-      position={props.game.board}
-      onDrop={onDrop}
-      orientation={determineOrientation()}
-    />
+    <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Chessboard
+          position={props.game.board}
+          onDrop={onDrop}
+          orientation={determineOrientation()}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Typography>
+          Current status: {props.game.status}
+        </Typography>
+      </Grid>
+    </Grid>
   );
 }
