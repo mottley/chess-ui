@@ -1,5 +1,6 @@
 import { GameHistoryVO } from '../../models/GameHistoryVO';
 import { Action } from 'redux';
+import { PlayerRecordVO } from '../../models/PlayerRecordVO';
 
 
 export enum ActionName {
@@ -28,6 +29,25 @@ export class GetHistorySuccessAction implements Action<ActionName> {
   constructor(public payload: IHistorySuccessPayload) { }
 }
 
+export interface ILeaderboardPayload { }
+
+export interface ILeaderboardSuccessPayload {
+  records: PlayerRecordVO[]
+}
+
+export class GetLeaderboardAction implements Action<ActionName> {
+  type = ActionName.GetLeaderboard
+  constructor(public payload: ILeaderboardPayload) { }
+}
+
+export class GetLeaderboardSuccessAction implements Action<ActionName> {
+  type = ActionName.GetLeaderboardSuccess
+  constructor(public payload: ILeaderboardSuccessPayload) { }
+}
+
 
 export type HistoryAction = GetHistoryAction
   | GetHistorySuccessAction
+
+  | GetLeaderboardAction
+  | GetLeaderboardSuccessAction

@@ -7,6 +7,7 @@ import { Login } from '../login/Login';
 import { Lobby } from '../lobby/Lobby';
 import { History } from '../history/History';
 import { Registration } from '../registration/Registration';
+import { Leaderboard } from '../leaderboard/Leaderboard';
 
 export const Main: FunctionComponent<MainProps> = props => {
   const route = useRoute();
@@ -22,6 +23,8 @@ export const Main: FunctionComponent<MainProps> = props => {
       return <History />;
     case RouteNames.Register:
       return <Registration />;
+    case RouteNames.Leaderboard:
+      return <Leaderboard />;
     default:
       return <Login />;
   }

@@ -26,7 +26,6 @@ export const Game: FunctionComponent<GameProps> = () => {
   const inProgressGame = game && game.gameId === gameId
 
   const completedGame = completedGames.find(cg => cg.gameId === gameId)
-  console.log('completed game', completedGame)
   const player = useSelector<IApplicationStore, PlayerVO>(store => store.chess.auth.player!)
 
   const onMove = (move: string) => {

@@ -27,6 +27,7 @@ export function* login(action: AuthenticationAction.LoginAction) {
   yield put(RouterAction.navigateTo(RouteNames.Lobby))
 
   yield put(new HistoryAction.GetHistoryAction({}))
+  yield put(new HistoryAction.GetLeaderboardAction({}))
 }
 
 export function* getCsrfToken(action: AuthenticationAction.GetCsrfAction) {

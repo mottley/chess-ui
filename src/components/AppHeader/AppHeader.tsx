@@ -46,8 +46,12 @@ const navOptions: NavigationOption[] = [
     route: RouteNames.Lobby
   },
   {
-    label: 'History',
+    label: 'Game History',
     route: RouteNames.History
+  },
+  {
+    label: 'Leaderboard',
+    route: RouteNames.Leaderboard
   }
 ]
 
